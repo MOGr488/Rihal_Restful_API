@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe33f98a750b8c5a51b30c78bd3fab21",
+    "content-hash": "8e801d90bf55e35d9f9564a6b2d790a0",
     "packages": [
         {
             "name": "brick/math",
@@ -980,6 +980,44 @@
                 }
             ],
             "time": "2021-10-07T12:57:01+00:00"
+        },
+        {
+            "name": "howtomakeaturn/pdfinfo",
+            "version": "1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/howtomakeaturn/pdfinfo.git",
+                "reference": "292e11fe1f0fa17c3b57dd52f29376e49c14c15e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/howtomakeaturn/pdfinfo/zipball/292e11fe1f0fa17c3b57dd52f29376e49c14c15e",
+                "reference": "292e11fe1f0fa17c3b57dd52f29376e49c14c15e",
+                "shasum": ""
+            },
+            "require-dev": {
+                "filp/whoops": "1.1.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Howtomakeaturn\\PDFInfo": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "simple php wrapper for pdfinfo",
+            "keywords": [
+                "pdf",
+                "pdfinfo"
+            ],
+            "support": {
+                "issues": "https://github.com/howtomakeaturn/pdfinfo/issues",
+                "source": "https://github.com/howtomakeaturn/pdfinfo/tree/master"
+            },
+            "time": "2019-01-10T02:45:07+00:00"
         },
         {
             "name": "laravel/framework",
