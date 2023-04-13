@@ -11,6 +11,7 @@ class PdfFile extends Model
 
     protected $fillable = [
         'name',
+        'user_id',
         'page_count',
         'size',
     ];

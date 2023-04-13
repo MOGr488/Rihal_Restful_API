@@ -10,7 +10,8 @@
         "howtomakeaturn/pdfinfo": "^1.1",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
-        "laravel/tinker": "^2.7"
+        "laravel/tinker": "^2.7",
+        "smalot/pdfparser": "^2.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Models\PdfFile;
 use Illuminate\Http\Request;
-use \Howtomakeaturn\PDFInfo\PDFInfo;
+use Smalot\PdfParser\Parser;
+use App\Http\Controllers\Controller;
+
 
 
 
@@ -14,10 +15,11 @@ class PdfFileController extends Controller
     public function upload(Request $request){
         $file = $request->file('file');
         $name = time().'.'.$file->extension();
-        $path = $file->store('pdfs');
+        $path = $file->storeAs('pdfs',$name);
         
         $pdf = new PdfFile([
             'name' => $name,
+            'user_id' => 1,
             'path' => $path,
             'size' => $file->getSize(),
             'page_count' => $this->getPageCount($path),
@@ -30,8 +32,12 @@ class PdfFileController extends Controller
 
     private function getPageCount($path)
     {
-        $pdfInfo = new PDFInfo($path);
-        return $pdfInfo->pages;
+        //dd($path);
+        $parser = new Parser();
+        
+        $pdf = $parser->parseFile(storage_path('app/' . $path))->getDetails();
+        return $pdf['Pages'];
+
     }
 
 }
