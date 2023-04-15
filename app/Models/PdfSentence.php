@@ -11,6 +11,7 @@ class PdfSentence extends Model
 
     protected $fillable = [
         'pdf_file_id',
+        'page_number',
         'sentence'
     ];
 
