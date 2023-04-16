@@ -110,4 +110,18 @@ class PdfFileController extends Controller
 
 
 
+    public function getPdfSentences($pdfId)
+{
+    $pdfFile = PdfFile::find($pdfId);
+    
+    if ($pdfFile) {
+        $sentences = $pdfFile->sentences()->pluck('sentence')->toArray();
+        
+        return response()->json($sentences, 200);
+    }
+    
+    return response()->json(['message' => 'PDF not found.'], 404);
+}
+
+
 }
