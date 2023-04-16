@@ -23,5 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/pdf/upload', [PdfFileController::class, 'upload']);
 
+Route::get('/pdfs', [PdfFileController::class, 'index']);
+
+
 
 Route::post('/users', [UserController::class, 'store']);

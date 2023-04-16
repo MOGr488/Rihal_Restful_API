@@ -35,15 +35,15 @@ class PdfFileController extends Controller
         $parsedPdf = $parser->parseFile(storage_path('app/' . $path));
         $pages = $parsedPdf->getPages();
         $sentences = [];
-       // dd($pages);
+    
        foreach ($pages as $pageNumber => $page) {
         $text = $page->getText();
-        
+     
         $sentences = preg_split('/(?<=[.?!])\s+/', $text);
         $sentences = array_filter($sentences, function($sentence) {
             return strlen(trim($sentence)) > 1;
         });
-          //  dd($sentences);
+         
         foreach ($sentences as $sentence) {
             PdfSentence::create([
                 'pdf_file_id' => $pdf->id,
@@ -61,4 +61,9 @@ class PdfFileController extends Controller
         return (new Parser())->parseFile(storage_path('app/' . $path))->getDetails()['Pages'];
     }
 
+
+    public function index(){
+        $pdfs = PdfFile::all();
+        return response()->json($pdfs, 200);
+    }
 }
