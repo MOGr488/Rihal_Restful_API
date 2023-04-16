@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Models\PdfFile;
 use App\Models\PdfSentence;
+use App\Http\Resources\PdfFile as PdfFileResource;
 use Illuminate\Http\Request;
 use Smalot\PdfParser\Parser;
 use App\Http\Controllers\Controller;
@@ -63,7 +64,7 @@ class PdfFileController extends Controller
 
 
     public function index(){
-        $pdfs = PdfFile::all();
+        $pdfs = PdfFileResource::collection(PdfFile::all());
         return response()->json($pdfs, 200);
     }
 }
