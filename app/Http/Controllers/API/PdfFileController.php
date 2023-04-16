@@ -67,4 +67,47 @@ class PdfFileController extends Controller
         $pdfs = PdfFileResource::collection(PdfFile::all());
         return response()->json($pdfs, 200);
     }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $pdfFileIdsAndSentences = [];
+    
+        // Search for keyword in PdfSentence model and retrieve associated PdfFile models
+        $pdfSentences = PdfSentence::where('sentence', 'LIKE', '%' . $keyword . '%')->with('pdfFile')->get();
+
+        if ($pdfSentences->isEmpty()) {
+            return response()->json(['message' => 'No results found.'], 404);
+        }
+    
+        foreach ($pdfSentences as $pdfSentence) {
+            $pdfFile = $pdfSentence->pdfFile;
+    
+            // Check if PdfFile has already been added to array
+            $foundPdfFile = array_filter($pdfFileIdsAndSentences, function ($item) use ($pdfFile) {
+                return $item['pdf_file_id'] == $pdfFile->id;
+            });
+    
+            if (empty($foundPdfFile)) {
+                // Add PdfFile and sentence to array if not already present
+                $pdfFileIdsAndSentences[] = [
+                    'pdf_file_id' => $pdfFile->id,
+                    'sentences' => [$pdfSentence->sentence],
+                ];
+            } else {
+                // Add sentence to existing PdfFile in array
+                foreach ($pdfFileIdsAndSentences as &$item) {
+                    if ($item['pdf_file_id'] == $pdfFile->id) {
+                        $item['sentences'][] = $pdfSentence->sentence;
+                        break;
+                    }
+                }
+            }
+        }
+    
+        return response()->json($pdfFileIdsAndSentences, 200);
+    }
+
+
+
 }

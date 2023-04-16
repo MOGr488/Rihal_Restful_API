@@ -25,6 +25,8 @@ Route::post('/pdf/upload', [PdfFileController::class, 'upload']);
 
 Route::get('/pdfs', [PdfFileController::class, 'index']);
 
+Route::get('/pdfs/search', [PdfFileController::class, 'search']);
+
 
 
 Route::post('/users', [UserController::class, 'store']);

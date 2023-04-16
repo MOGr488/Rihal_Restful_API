@@ -16,7 +16,7 @@ class PdfSentence extends Model
     ];
 
 
-    public function pdf_file()
+    public function pdfFile()
     {
         return $this->belongsTo(PdfFile::class);
     }
