@@ -29,6 +29,8 @@ Route::get('/pdfs/search', [PdfFileController::class, 'search']);
 
 Route::get('/pdfs/{id}/sentences', [PdfFileController::class, 'getPdfSentences']);
 
+Route::get('/pdfs/{id}/top-words', [PdfFileController::class, 'getTopWords']);
 
+Route::get('/pdf/{id}/word/{word}', [PdfFileController::class, 'searchWord']);
 
 Route::post('/users', [UserController::class, 'store']);
