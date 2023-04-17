@@ -175,4 +175,19 @@ class PdfFileController extends Controller
         'sentences' => $sentences
     ]);
 }
+
+
+public function destroy($id)
+    {
+        $pdfFile = PdfFile::findOrFail($id);
+        $pdfFile->delete();
+        return response()->json([
+            'message' => 'Pdf file deleted successfully'
+        ]);
+}
+
+
+
+
+
 }
