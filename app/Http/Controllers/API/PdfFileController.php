@@ -8,6 +8,7 @@ use App\Http\Resources\PdfFile as PdfFileResource;
 use Illuminate\Http\Request;
 use Smalot\PdfParser\Parser;
 use App\Http\Controllers\Controller;
+use Kreait\Laravel\Firebase\Facades\Firebase;
 
 
 
@@ -20,7 +21,12 @@ class PdfFileController extends Controller
         $name = time() . '.' . $file->extension();
         $path = $file->storeAs('pdfs', $name);
 
-
+       
+    $firebaseStorage = Firebase::storage();
+    $bucket = $firebaseStorage->getBucket();
+    $bucket->upload(file_get_contents(storage_path('app/' . $path)), [
+        'name' => 'pdfs/' . $name,
+    ]);
 
 
         $pdf = new PdfFile([
@@ -185,6 +191,8 @@ public function destroy($id)
             'message' => 'Pdf file deleted successfully'
         ]);
 }
+
+
 
 
 

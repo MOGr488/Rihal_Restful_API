@@ -35,5 +35,7 @@ Route::get('/pdfs/{id}/lookup', [PdfFileController::class, 'searchWord']);
 
 Route::get('/pdfs/{id}', [PdfFileController::class, 'destroy']);
 
+Route::get('/pdfs/{id}/download', [PdfFileController::class, 'download']);
+
 
 Route::post('/users', [UserController::class, 'store']);
