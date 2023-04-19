@@ -193,6 +193,18 @@ public function destroy($id)
 }
 
 
+public function download($pdfId)
+{
+    $pdf = PdfFile::findOrFail($pdfId);
+
+    // Get the URL of the PDF file in Firebase Storage
+    $url = Firebase::storage()->getBucket()->object("pdfs/".$pdf->name)->signedUrl(now()->addMinutes(5));
+
+    // Return the download URL
+    return response()->json([
+        'url' => $url,
+    ]);
+}
 
 
 
