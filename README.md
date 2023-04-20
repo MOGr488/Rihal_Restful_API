@@ -36,11 +36,26 @@ You can use any apache or nginx, I use laragon to get Apache and Mysql
 
 ## Checking the Project
 - Run `php artisan migrate` in terminal to migrate the database tables. 
-- You can run test using `php test start`
+- You can run test using `php test start` to check that user functionality is working correctly.
+
+## Create User using Postman 
+Route : POST `http://rihal_restful_api.test/api/users`
+Body : fillable 
+            - name
+            - email
+            - password
+            - role (type admin)
+![image](https://user-images.githubusercontent.com/86527969/233470265-94f6af6f-22e5-431f-9450-2de65b0390c8.png)
+
+
+Once you have the user created you can use it for Basic auth
+![image](https://user-images.githubusercontent.com/86527969/233470737-a554fb95-387a-4d8b-9a86-96d698916325.png)
+
 
 ## API Routes
 
 ### PDFs
+Note: Those routes are protected using Basic Auth
 
 - Method: GET|HEAD
     - Route: api/pdfs
