@@ -94,13 +94,13 @@ class Handler extends ExceptionHandler
                  ]
              ], 405);
          }
-         else{
+         /*else{
             return  new JsonResponse([
                 'error' => [
                     'message' => 'Route is not support or you do not have permission to access this route! Make sure to use the latest API version.'
                 ]
             ], 404);
-         }
+         }*/
         return parent::render($request, $exception);
     }
 }
