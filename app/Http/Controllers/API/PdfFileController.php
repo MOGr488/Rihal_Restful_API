@@ -4,11 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Models\PdfFile;
 use App\Models\PdfSentence;
-use App\Http\Resources\PdfFile as PdfFileResource;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Smalot\PdfParser\Parser;
 use App\Http\Controllers\Controller;
 use Kreait\Laravel\Firebase\Facades\Firebase;
+use App\Http\Resources\PdfFile as PdfFileResource;
 
 
 
@@ -23,8 +24,10 @@ class PdfFileController extends Controller
      */
     public function upload(Request $request)
     {
+       // $this->authorize('create', PdfFile::class);
+
         $file = $request->file('file');
-        $name = time() . '.' . $file->extension();
+        $name = Str::slug($file->getClientOriginalName()).'.'.$file->extension();
         $path = $file->storeAs('pdfs', $name);
 
 
@@ -86,9 +89,10 @@ class PdfFileController extends Controller
      * 
      * @return json
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pdfs = PdfFileResource::collection(PdfFile::all());
+        $limit = $request->input('limit') <= 50 ? $request->input('limit') : 15;
+        $pdfs = PdfFileResource::collection(PdfFile::paginate($limit));
         return response()->json($pdfs, 200);
     }
 

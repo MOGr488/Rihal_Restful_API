@@ -79,7 +79,7 @@ class Handler extends ExceptionHandler
                      'message' => 'Not Authorized to Perform this Action!'
                  ]
              ], 403);
-         }
+         } 
         if ($exception instanceof ModelNotFoundException) {
             return  new JsonResponse([
                 'error' => [
@@ -97,7 +97,7 @@ class Handler extends ExceptionHandler
          else{
             return  new JsonResponse([
                 'error' => [
-                    'message' => 'Route is not support or you do not have permission to access this route!'
+                    'message' => 'Route is not support or you do not have permission to access this route! Make sure to use the latest API version.'
                 ]
             ], 404);
          }

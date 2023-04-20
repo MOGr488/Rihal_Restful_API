@@ -3,10 +3,11 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Models\PdfFile;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class UserPolicy
+class PdfFilePolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +19,17 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->role === 'admin' 
-        ? Response::allow() 
-        : Response::deny('You are not allowed to view users');
+        //
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\PdfFile  $pdfFile
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, User $model)
+    public function view(User $user, PdfFile $pdfFile)
     {
         //
     }
@@ -45,45 +44,41 @@ class UserPolicy
     {
         return $user->role === 'admin' 
         ? Response::allow() 
-        : Response::deny('You are not allowed to create users');
+        : Response::deny('You are not allowed to upload.');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\PdfFile  $pdfFile
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, User $model)
+    public function update(User $user, PdfFile $pdfFile)
     {
-        return $user->id === $model->id || $user->role === 'admin' 
-        ? Response::allow() 
-        : Response::deny('Unauthorized - You are not allowed to update this user');
+        //
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\PdfFile  $pdfFile
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, User $model)
+    public function delete(User $user, PdfFile $pdfFile)
     {
-        return $user->id === $model->id || $user->role === 'admin' 
-        ? Response::allow() 
-        : Response::deny('Unauthorized - You are not allowed to delete this user');
+        //
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\PdfFile  $pdfFile
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, User $model)
+    public function restore(User $user, PdfFile $pdfFile)
     {
         //
     }
@@ -92,10 +87,10 @@ class UserPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\PdfFile  $pdfFile
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, User $model)
+    public function forceDelete(User $user, PdfFile $pdfFile)
     {
         //
     }
