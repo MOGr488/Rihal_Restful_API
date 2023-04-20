@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\PdfFileController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Http\Request;
@@ -20,10 +21,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/register', [AuthController::class, 'createUser']);
+Route::post('/login', [AuthController::class, 'loginUser'])->name('login');
+
 
 Route::post('/pdfs/upload', [PdfFileController::class, 'upload']);
 
-Route::get('/pdfs', [PdfFileController::class, 'index']);
+Route::get('/pdfs', [PdfFileController::class, 'index'])->middleware('auth:sanctum');
 
 Route::get('/pdfs/search', [PdfFileController::class, 'search']);
 

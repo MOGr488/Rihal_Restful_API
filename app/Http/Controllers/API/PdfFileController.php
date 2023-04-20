@@ -15,6 +15,12 @@ use Kreait\Laravel\Firebase\Facades\Firebase;
 
 class PdfFileController extends Controller
 {
+    /**
+     * Upload a pdf file
+     *
+     * @param Request $request
+     * @return json
+     */
     public function upload(Request $request)
     {
         $file = $request->file('file');
@@ -197,7 +203,6 @@ public function download($pdfId)
 {
     $pdf = PdfFile::findOrFail($pdfId);
 
-    // Get the URL of the PDF file in Firebase Storage
     $url = Firebase::storage()->getBucket()->object("pdfs/".$pdf->name)->signedUrl(now()->addMinutes(5));
 
     // Return the download URL
