@@ -24,8 +24,7 @@ class PdfFileController extends Controller
      */
     public function upload(Request $request)
     {
-       // $this->authorize('create', PdfFile::class);
-
+       
         $file = $request->file('file');
         $name = Str::slug($file->getClientOriginalName()).'.'.$file->extension();
         $path = $file->storeAs('pdfs', $name);

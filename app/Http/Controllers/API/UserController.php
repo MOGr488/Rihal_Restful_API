@@ -17,8 +17,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('viewAny', User::class);
-
+    
         $limit = $request->input('limit') <= 50 ? $request->input('limit') : 15;
         $user = UserResource::collection(User::paginate($limit));
         return $user->response()
@@ -35,7 +34,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
 
-       // $this->authorize('create', User::class);
+      
         $user =new UserResource(User::create(
             [
                 'name' => $request->name,

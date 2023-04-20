@@ -73,13 +73,13 @@ class Handler extends ExceptionHandler
                 ]
             ], 401);
         }
-        if ($exception instanceof AuthorizationException) {
+       /* if ($exception instanceof AuthorizationException) {
             return  new JsonResponse([
                  'error' => [
                      'message' => 'Not Authorized to Perform this Action!'
                  ]
              ], 403);
-         } 
+         } */
         if ($exception instanceof ModelNotFoundException) {
             return  new JsonResponse([
                 'error' => [
