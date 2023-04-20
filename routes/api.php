@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\PdfFileController;
+use App\Http\Controllers\API\PdfUtility;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,11 +27,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/pdfs/upload', [PdfFileController::class, 'upload']);
     Route::get('/pdfs', [PdfFileController::class, 'index']);
     Route::get('/pdfs/search', [PdfFileController::class, 'search']);
-    Route::get('/pdfs/{id}/sentences', [PdfFileController::class, 'getPdfSentences']);
-    Route::get('/pdfs/{id}/top-words', [PdfFileController::class, 'getTopWords']);
-    Route::get('/pdfs/{id}/lookup', [PdfFileController::class, 'searchWord']);
     Route::delete('/pdfs/{id}', [PdfFileController::class, 'destroy']);
     Route::get('/pdfs/{id}/download', [PdfFileController::class, 'download']);
-
-    Route::post('/users', [UserController::class, 'store']);
+    
+    Route::get('/pdfs/{id}/sentences', [PdfUtility::class, 'getPdfSentences']);
+    Route::get('/pdfs/{id}/top-words', [PdfUtility::class, 'getTopWords']);
+    Route::get('/pdfs/{id}/lookup', [PdfUtility::class, 'searchWord']);
 });
