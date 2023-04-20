@@ -1,66 +1,119 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Project Description: 
+- Laravel 9 
+- Mysql Database
+- Apache Server
+- PHP 8.1.9
+- Firebase Storage
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+You can use any apache or nginx, I use laragon to get Apache and Mysql 
+# Installing Laravel with Laragon
 
-## About Laravel
+1. Download and install Laragon from the official website: https://laragon.org/download/
+2. In Laragon click Root and extract the project file there
+![image](https://user-images.githubusercontent.com/86527969/233466361-fb243415-1dbd-48e5-819e-220f62969728.png)
+3. Laragon should regonize the project once you click START ALL.
+4. Now you can navigate to `http://rihal_restful_api.test/` in the browser and see the laravel welcome page.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Checking the routes using postman 
+## Downloading Postman
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. Go to the Postman website at https://www.postman.com/downloads/.
+2. Select your operating system from the list of options.
+3. Click on the "Download" button.
+4. Once the download is complete, run the installer and follow the instructions to install Postman on your computer.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Using Postman
 
-## Learning Laravel
+1. Open Postman.
+2. You will see the Postman interface, which is divided into different sections.
+3. To create a new request, click on the "New" button on the top left corner of the window.
+4. Select the HTTP method of your choice (GET, POST, PUT, DELETE, etc.).
+5. Enter the request URL in the address bar.
+6. If the request requires any headers or parameters, enter them in the appropriate section.
+7. Click on the "Send" button to send the request.
+8. View the response in the "Response" section of the window.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Checking the Project
+- Run `php artisan migrate` in terminal to migrate the database tables. 
+- You can run test using `php test start` to check that user functionality is working correctly.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Create User using Postman 
+Route : POST `http://rihal_restful_api.test/api/users`
+Body : fillable 
+            - name
+            - email
+            - password
+            - role (type admin)
+![image](https://user-images.githubusercontent.com/86527969/233470265-94f6af6f-22e5-431f-9450-2de65b0390c8.png)
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Once you have the user created you can use it for Basic auth
+![image](https://user-images.githubusercontent.com/86527969/233470737-a554fb95-387a-4d8b-9a86-96d698916325.png)
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## API Routes
 
-## Contributing
+### PDFs
+Note: Those routes are protected using Basic Auth
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Method: GET|HEAD
+    - Route: api/pdfs
+    - Description: Returns a list of all PDF files.
 
-## Code of Conduct
+- Method: GET|HEAD
+    - Route: api/pdfs/search
+    - Description: Searches for PDF files based on query parameters.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Method: POST
+    - Route: api/pdfs/upload
+    - Description: Uploads a PDF file.
 
-## Security Vulnerabilities
+- Method: DELETE
+    - Route: api/pdfs/{id}
+    - Description: Deletes a specific PDF file, where `{id}` is the ID of the PDF file.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- Method: GET|HEAD
+    - Route: api/pdfs/{id}/download
+    - Description: Downloads a specific PDF file, where `{id}` is the ID of the PDF file.
 
-## License
+- Method: GET|HEAD
+    - Route: api/pdfs/{id}/lookup
+    - Description: Searches for a specific word in a specific PDF file, where `{id}` is the ID of the PDF file.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Method: GET|HEAD
+    - Route: api/pdfs/{id}/sentences
+    - Description: Returns all sentences in a specific PDF file, where `{id}` is the ID of the PDF file.
+
+- Method: GET|HEAD
+    - Route: api/pdfs/{id}/top-words
+    - Description: Returns the top 5 most frequently occurring words in a specific PDF file, where `{id}` is the ID of the PDF file.
+
+
+
+
+### Users
+
+- Method: GET|HEAD
+    - Route: api/users
+    - Description: Returns a list of all users.
+
+
+- Method: POST
+    - Route: api/users
+    - Description: Creates a new user.
+
+
+- Method: GET|HEAD
+    - Route: api/users/{user}
+    - Description: Returns the user with the specified ID.
+
+
+- Method: PUT|PATCH
+    - Route: api/users/{user}
+    - Description: Updates the user with the specified ID.
+
+
+- Method: DELETE
+    - Route: api/users/{user}
+    - Description: Deletes the user with the specified ID.
