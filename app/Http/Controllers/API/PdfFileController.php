@@ -26,7 +26,7 @@ class PdfFileController extends Controller
     {
        
         $file = $request->file('file');
-        $name = Str::slug($file->getClientOriginalName()).'.'.$file->extension();
+        $name = random_int(1, 100).'-'.Str::slug($file->getClientOriginalName()).'.'.$file->extension();
         $path = $file->storeAs('pdfs', $name);
 
 

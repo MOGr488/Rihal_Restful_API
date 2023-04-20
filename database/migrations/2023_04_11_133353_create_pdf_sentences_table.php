@@ -18,7 +18,8 @@ return new class extends Migration
             $table->foreignId('pdf_file_id')->references('id')->on('pdf_files')->onDelete('cascade');
             $table->text('sentence');
             $table->integer('page_number');
-    
+            $table->timestamps();
+            
         });
     }
 
