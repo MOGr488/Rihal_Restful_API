@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'createUser']);
 Route::post('/login', [AuthController::class, 'loginUser'])->name('login');
 
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth.basic'])->group(function () {
     Route::post('/pdfs/upload', [PdfFileController::class, 'upload']);
     Route::get('/pdfs', [PdfFileController::class, 'index']);
     Route::get('/pdfs/search', [PdfFileController::class, 'search']);
@@ -34,6 +34,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/pdfs/{id}/top-words', [PdfUtility::class, 'getTopWords']);
     Route::get('/pdfs/{id}/lookup', [PdfUtility::class, 'searchWord']);
 
-    Route::apiResource('users', UserController::class);
-
+    
 });
+Route::apiResource('users', UserController::class);

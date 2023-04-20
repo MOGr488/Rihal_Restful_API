@@ -92,8 +92,9 @@ class PdfFileController extends Controller
     public function index(Request $request)
     {
         $limit = $request->input('limit') <= 50 ? $request->input('limit') : 15;
-        $pdfs = PdfFileResource::collection(PdfFile::paginate($limit));
-        return response()->json($pdfs, 200);
+        $pdfs = PdfFileResource::collection(PdfFile::simplePaginate($limit));
+         return $pdfs->response()
+        ->setStatusCode(200, "PDFs Returned Successfully");
     }
 
 

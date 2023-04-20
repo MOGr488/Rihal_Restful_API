@@ -35,13 +35,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
 
-        $this->authorize('create', User::class);
+       // $this->authorize('create', User::class);
         $user =new UserResource(User::create(
             [
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => Hash::make($request->password)
-            ]
+                'password' => Hash::make($request->password),
+                'role' => $request->role,
+            ],
         ));
         return $user->response()
                     ->setStatusCode(200, "User Stored Successfully");
