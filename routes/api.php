@@ -20,9 +20,6 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::post('/register', [AuthController::class, 'createUser']);
-Route::post('/login', [AuthController::class, 'loginUser'])->name('login');
-
 Route::middleware(['auth.basic'])->group(function () {
     Route::post('/pdfs/upload', [PdfFileController::class, 'upload']);
     Route::get('/pdfs', [PdfFileController::class, 'index']);
@@ -37,3 +34,12 @@ Route::middleware(['auth.basic'])->group(function () {
     
 });
 Route::apiResource('users', UserController::class);
+
+/*
+// Those routes are bounus routes for the authentication using Bearer Token.
+// Registering a new user returns a Bearer Token.
+// Login returns a Bearer Token.
+
+Route::post('/register', [AuthController::class, 'createUser']);
+Route::post('/login', [AuthController::class, 'loginUser'])->name('login');
+*/

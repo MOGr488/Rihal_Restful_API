@@ -169,7 +169,7 @@ class PdfFileController extends Controller
     public function download($pdfId)
     {
         $pdf = PdfFile::findOrFail($pdfId);
-
+        
         $url = Firebase::storage()->getBucket()->object("pdfs/" . $pdf->name)->signedUrl(now()->addMinutes(5));
 
         // Return the download URL
