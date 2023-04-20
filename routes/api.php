@@ -33,4 +33,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/pdfs/{id}/sentences', [PdfUtility::class, 'getPdfSentences']);
     Route::get('/pdfs/{id}/top-words', [PdfUtility::class, 'getTopWords']);
     Route::get('/pdfs/{id}/lookup', [PdfUtility::class, 'searchWord']);
+
+    Route::apiResource('users', UserController::class);
+
 });

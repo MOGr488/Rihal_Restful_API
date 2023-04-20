@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User as UserResource;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -14,9 +15,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $limit = $request->input('limit') <= 50 ? $request->input('limit') : 15;
+        $user = UserResource::collection(User::paginate($limit));
+        return $user->response()
+                    ->setStatusCode(200, "Users Returned Successfully")
+                    ->header('Additional-Header', 'True');
     }
 
     /**
@@ -27,21 +32,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|max:255',
-        ]);
 
-        $user = new User([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
-        ]);
-        
-        $user->save();
-
-        return response()->json(['message' => 'User created successfully.'], 201);
+        $this->authorize('create', User::class);
+        $user =new UserResource(User::create(
+            [
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password)
+            ]
+        ));
+        return $user->response()
+                    ->setStatusCode(200, "User Stored Successfully");
 
     }
 
@@ -51,9 +52,13 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        //
+        $user = new UserResource(User::findOrFail($id));
+        return $user->response()
+                    ->setStatusCode(200, "User Returned Successfully")
+                    ->header('Additional-Header', 'True');
+    
     }
 
     /**
@@ -63,9 +68,16 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        //
+        $iduser = User::findOrFail($id);
+        $this->authorize('update', $iduser);
+
+        $user =new UserResource(User::findOrFail($id));
+        $user->update($request->all());
+
+        return $user->response()
+                    ->setStatusCode(200, "User Updated Successfully");
     }
 
     /**
@@ -74,8 +86,12 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $this->authorize('delete', $user);
+
+        User::findOrFail($id)->delete();
+        return response()->noContent();
     }
 }
