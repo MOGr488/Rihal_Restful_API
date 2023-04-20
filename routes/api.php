@@ -17,29 +17,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
 
 Route::post('/register', [AuthController::class, 'createUser']);
 Route::post('/login', [AuthController::class, 'loginUser'])->name('login');
 
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('/pdfs/upload', [PdfFileController::class, 'upload']);
+    Route::get('/pdfs', [PdfFileController::class, 'index']);
+    Route::get('/pdfs/search', [PdfFileController::class, 'search']);
+    Route::get('/pdfs/{id}/sentences', [PdfFileController::class, 'getPdfSentences']);
+    Route::get('/pdfs/{id}/top-words', [PdfFileController::class, 'getTopWords']);
+    Route::get('/pdfs/{id}/lookup', [PdfFileController::class, 'searchWord']);
+    Route::delete('/pdfs/{id}', [PdfFileController::class, 'destroy']);
+    Route::get('/pdfs/{id}/download', [PdfFileController::class, 'download']);
 
-Route::post('/pdfs/upload', [PdfFileController::class, 'upload']);
-
-Route::get('/pdfs', [PdfFileController::class, 'index'])->middleware('auth:sanctum');
-
-Route::get('/pdfs/search', [PdfFileController::class, 'search']);
-
-Route::get('/pdfs/{id}/sentences', [PdfFileController::class, 'getPdfSentences']);
-
-Route::get('/pdfs/{id}/top-words', [PdfFileController::class, 'getTopWords']);
-
-Route::get('/pdfs/{id}/lookup', [PdfFileController::class, 'searchWord']);
-
-Route::get('/pdfs/{id}', [PdfFileController::class, 'destroy']);
-
-Route::get('/pdfs/{id}/download', [PdfFileController::class, 'download']);
-
-
-Route::post('/users', [UserController::class, 'store']);
+    Route::post('/users', [UserController::class, 'store']);
+});

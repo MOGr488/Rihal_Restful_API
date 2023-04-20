@@ -127,7 +127,7 @@ class PdfFileController extends Controller
     // Get sentences for a specific pdf file
     public function getPdfSentences($pdfId)
     {
-        $pdfFile = PdfFile::find($pdfId);
+        $pdfFile = PdfFile::findOrFail($pdfId);
 
         if ($pdfFile) {
             $sentences = $pdfFile->sentences()->pluck('sentence')->toArray();
