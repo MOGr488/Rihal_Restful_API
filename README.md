@@ -64,10 +64,12 @@ Note: Those routes are protected using Basic Auth
 - Method: GET|HEAD
     - Route: api/pdfs/search
     - Description: Searches for PDF files based on query parameters.
+    - Parameter: 'keyword' 
 
 - Method: POST
     - Route: api/pdfs/upload
     - Description: Uploads a PDF file.
+    - Body: key: file , value: the pdf file you want to upload.
 
 - Method: DELETE
     - Route: api/pdfs/{id}
