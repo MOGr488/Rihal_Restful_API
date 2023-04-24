@@ -82,7 +82,9 @@ Note: Those routes are protected using Basic Auth
 - Method: GET|HEAD
     - Route: api/pdfs/{id}/lookup
     - Description: Searches for a specific word in a specific PDF file, where `{id}` is the ID of the PDF file.
-
+    - Params: 'word'
+    - Example `http://rihal_restful_api.test/api/pdfs/1/lookup?word=banana`
+    
 - Method: GET|HEAD
     - Route: api/pdfs/{id}/sentences
     - Description: Returns all sentences in a specific PDF file, where `{id}` is the ID of the PDF file.
