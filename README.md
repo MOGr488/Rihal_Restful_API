@@ -1,3 +1,9 @@
+# NOTE: The repo is not intented for public yet. I will update it once Rihal winners anounce (9 May 23).  
+
+## I made video to showcase the routes please check it 
+[Rihal Backend Code Challenge - PDFs Restful API Solution](https://youtu.be/12oXALh34gE)
+
+
 # Project Description: 
 - Laravel 9 
 - Mysql Database
